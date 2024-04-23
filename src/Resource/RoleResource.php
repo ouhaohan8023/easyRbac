@@ -7,11 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class RoleResource extends JsonResource
 {
-    public function __construct($resource, public $showChildren = true)
-    {
-        parent::__construct($resource);
-    }
-
     /**
      * Transform the resource into an array.
      *
@@ -24,7 +19,7 @@ class RoleResource extends JsonResource
             'name' => $this->name,
             'title' => $this->title,
             'state' => $this->state,
-            'children' => $this->when($this->showChildren, new RoleCollection($this->children)),
+            'children' => new RoleCollection($this->children),
         ];
     }
 }
