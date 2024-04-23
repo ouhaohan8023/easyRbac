@@ -7,9 +7,9 @@ use Ouhaohan8023\EasyRbac\Model\Permission;
 
 class PermissionService
 {
-
     /**
      * 将路由同步按照树状结构同步到表中
+     *
      * @return void
      */
     public static function sync()
@@ -26,18 +26,19 @@ class PermissionService
                 $nameArr = explode('.', $name);
                 if (in_array($nameArr[0], $gKeys)) {
                     $num = count($nameArr);
-                    $rn = "";
+                    $rn = '';
                     $parent = null;
                     for ($i = 0; $i < $num; $i++) {
                         $rn .= $nameArr[$i];
                         $add['name'] = $rn;
                         $ex = Permission::query()->where('name', $rn)->first();
-                        $rn .= ".";
+                        $rn .= '.';
                         if ($ex) {
                             $parent = $ex;
+
                             continue;
                         }
-                        $add['guard_name'] = "api";
+                        $add['guard_name'] = 'api';
                         if ($parent) {
                             $add['parent_id'] = $parent->id;
                         }

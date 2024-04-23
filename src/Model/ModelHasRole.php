@@ -11,6 +11,6 @@ namespace Ouhaohan8023\EasyRbac\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MenuHasPermission extends Model
+class ModelHasRole extends Model
 {
 }

@@ -6,6 +6,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class PermissionTreeResource extends JsonResource
 {
+    public function __construct($resource, public $showChildren = true)
+    {
+        parent::__construct($resource);
+    }
+
     public function toArray($request)
     {
         return [
@@ -16,7 +21,7 @@ class PermissionTreeResource extends JsonResource
             'weigh' => $this->weigh,
             'is_need_right' => $this->is_need_right,
             'is_need_login' => $this->is_need_login,
-            'children' => new PermissionTreeCollection($this->children),
+            'children' => $this->when($this->showChildren, new PermissionTreeCollection($this->children)),
         ];
     }
 }

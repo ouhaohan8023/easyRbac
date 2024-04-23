@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -27,14 +27,14 @@ return new class extends Migration
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
             $table->bigIncrements('id'); // permission id
             $table->string('name');       // For MySQL 8.0 use string('name', 125);
-            $table->string('title',125)->nullable()->comment('名称');
+            $table->string('title', 125)->nullable()->comment('名称');
 
             $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
             $table->timestamps();
-            $table->integer('weigh',false)->default(0)->comment('权重');
-            $table->tinyInteger('state',false)->default(1)->comment('状态0关闭 1开启');
-            $table->tinyInteger('is_need_login',false)->default(1)->comment('是否需要登录');
-            $table->tinyInteger('is_need_right',false)->default(1)->comment('是否需要鉴权');
+            $table->integer('weigh', false)->default(0)->comment('权重');
+            $table->tinyInteger('state', false)->default(1)->comment('状态0关闭 1开启');
+            $table->tinyInteger('is_need_login', false)->default(1)->comment('是否需要登录');
+            $table->tinyInteger('is_need_right', false)->default(1)->comment('是否需要鉴权');
             $table->nestedSet();
             $table->unique(['name', 'guard_name']);
         });
@@ -46,7 +46,7 @@ return new class extends Migration
                 $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
             }
             $table->string('name');       // For MySQL 8.0 use string('name', 125);
-            $table->string('title',125)->nullable()->comment('名称');
+            $table->string('title', 125)->nullable()->comment('名称');
             $table->tinyInteger('show')->default(1)->comment('是否展示');
             $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
             $table->timestamps();
@@ -55,7 +55,7 @@ return new class extends Migration
             } else {
                 $table->unique(['name', 'guard_name']);
             }
-            $table->tinyInteger('state',false)->default(1)->comment('状态0关闭 1开启');
+            $table->tinyInteger('state', false)->default(1)->comment('状态0关闭 1开启');
             $table->nestedSet();
 
         });

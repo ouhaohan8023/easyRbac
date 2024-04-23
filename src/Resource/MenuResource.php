@@ -7,6 +7,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class MenuResource extends JsonResource
 {
+    public function __construct($resource, public $showChildren = true)
+    {
+        parent::__construct($resource);
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -38,7 +43,7 @@ class MenuResource extends JsonResource
             'hidden' => $this->hidden,
             'img' => $this->img,
             'type' => $this->type,
-            'children' => new MenuCollection($this->children),
+            'children' => $this->when($this->showChildren, new MenuCollection($this->children)),
         ];
     }
 }

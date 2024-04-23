@@ -10,15 +10,15 @@ class Permission extends \Spatie\Permission\Models\Permission
     use NodeTrait;
 
     protected $fillable = [
-        "id",
-        "name",
-        "title",
-        "guard_name",
-        "weigh",
-        "state",
-        "is_need_login",
-        "is_need_right",
-        "parent_id",
+        'id',
+        'name',
+        'title',
+        'guard_name',
+        'weigh',
+        'state',
+        'is_need_login',
+        'is_need_right',
+        'parent_id',
     ];
 
     /**
@@ -27,8 +27,8 @@ class Permission extends \Spatie\Permission\Models\Permission
     public static function sync()
     {
         // find super_admin
-//        $routes = Route::getRoutes();
-//        $groups = config('easy-rbac.groups');
-//        $gKeys = array_keys($groups);
+        //        $routes = Route::getRoutes();
+        //        $groups = config('easy-rbac.groups');
+        //        $gKeys = array_keys($groups);
     }
 }

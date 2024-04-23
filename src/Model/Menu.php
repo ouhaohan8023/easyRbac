@@ -19,7 +19,7 @@ class Menu extends Model
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
-        'updated_at' => 'datetime:Y-m-d H:i:s'
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     protected $fillable = [
@@ -39,7 +39,7 @@ class Menu extends Model
         'breadcrumbHidden',
         'activeMenu',
         'system',
-//        'extend',
+        //        'extend',
         'weigh',
         'dynamicNewTab',
         'noKeepAlive',

@@ -8,7 +8,6 @@ use Ouhaohan8023\EasyRbac\Model\Menu;
 
 class MenuService
 {
-
     /**
      * 同步菜单
      */
@@ -54,10 +53,12 @@ class MenuService
                 $menu->permissions()->sync($data['guard']);
             }
             DB::commit();
+
             return true;
         } catch (\Exception $e) {
-            Log::error("新增菜单失败", ['msg' => $e->getMessage()]);
+            Log::error('新增菜单失败', ['msg' => $e->getMessage()]);
             DB::rollBack();
+
             return false;
         }
     }
@@ -67,7 +68,7 @@ class MenuService
         DB::beginTransaction();
         try {
             $menu = Menu::find($id);
-            if (!$menu) {
+            if (! $menu) {
                 throw new \Exception('Menu not found');
             }
 
@@ -78,10 +79,12 @@ class MenuService
             }
 
             DB::commit();
+
             return true;
         } catch (\Exception $e) {
-            Log::error("更新菜单失败", ['msg' => $e->getMessage()]);
+            Log::error('更新菜单失败', ['msg' => $e->getMessage()]);
             DB::rollBack();
+
             return false;
         }
     }

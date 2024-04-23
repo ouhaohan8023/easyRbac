@@ -2,7 +2,8 @@
 
 namespace Ouhaohan8023\EasyRbac\Model;
 
-class RoleHasMenu
-{
+use Illuminate\Database\Eloquent\Model;
 
+class RoleHasMenu extends Model
+{
 }

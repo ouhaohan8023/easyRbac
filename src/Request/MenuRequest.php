@@ -2,7 +2,6 @@
 
 namespace Ouhaohan8023\EasyRbac\Request;
 
-
 class MenuRequest extends Request
 {
     /**

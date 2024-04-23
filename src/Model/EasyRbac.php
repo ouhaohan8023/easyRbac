@@ -11,6 +11,7 @@ namespace Ouhaohan8023\EasyRbac\Model;
 
 use Ouhaohan8023\EasyRbac\Service\MenuService;
 use Ouhaohan8023\EasyRbac\Service\PermissionService;
+use Ouhaohan8023\EasyRbac\Service\RoleService;
 
 class EasyRbac
 {
@@ -37,11 +38,26 @@ class EasyRbac
 
     public static function updateMenu($data, $id)
     {
-        MenuService::update($data, $id);
+        return MenuService::update($data, $id);
     }
 
     public static function menuTree()
     {
         return MenuService::tree();
+    }
+
+    public static function roleTree()
+    {
+        return RoleService::tree();
+    }
+
+    public static function addRole($data)
+    {
+        return RoleService::add($data);
+    }
+
+    public static function updateRole($data, $id)
+    {
+        return RoleService::update($data, $id);
     }
 }
