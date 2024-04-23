@@ -1,5 +1,7 @@
 ## Easy-Rbac
 
+![easy-rbac](./easy-rbac.png)
+
 ### 1. 安装
 ```composer
 composer require ouhaohan8023/easy-rbac
@@ -89,4 +91,20 @@ $tree = EasyRbac::menuTree();
 }
 EasyRbac::addMenu($data);
 其中guard是权限id，parent_id是上级菜单id
+
+7. 在路由中引入中间件，开启权限认证
+->middleware(['easy-rbac']);
+
+8. 配置文件中可以手动关闭认证
+/**
+ * 是否启用中间件
+ */
+'enable_middleware' => true,
+
+9。 配置文件中可以指定超管角色key
+/**
+ * 自定义超级管理员的名称
+ * 超级管理员会跳过权限认证
+ */
+'super_admin_key' => 'super_admin',
 ```

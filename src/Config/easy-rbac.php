@@ -10,4 +10,15 @@ return [
     'groups' => [
         'theater' => '剧场',
     ],
+
+    /**
+     * 是否启用中间件
+     */
+    'enable_middleware' => true,
+
+    /**
+     * 自定义超级管理员的名称
+     * 超级管理员会跳过权限认证
+     */
+    'super_admin_key' => 'super_admin',
 ];

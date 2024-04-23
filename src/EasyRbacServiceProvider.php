@@ -9,7 +9,9 @@
 
 namespace Ouhaohan8023\EasyRbac;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Ouhaohan8023\EasyRbac\Middleware\EasyAuth;
 
 class EasyRbacServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,11 @@ class EasyRbacServiceProvider extends ServiceProvider
             ],
             'config'
         );
+        $this->app['router']->aliasMiddleware('easy-rbac', EasyAuth::class);
+        // give all right to super admin
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole(config('easy-rbac.super_admin_key')) ? true : null;
+        });
     }
 
     public function register()
