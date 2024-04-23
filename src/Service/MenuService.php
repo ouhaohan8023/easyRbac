@@ -31,6 +31,9 @@ class MenuService
                     $add['state'] = $menu['meta']['hidden'];
                 }
             }
+            if (isset($menu['path'])) {
+                $add['url'] = $menu['path'];
+            }
             if ($pid) {
                 $add['parent_id'] = $pid;
             }

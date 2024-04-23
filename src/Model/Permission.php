@@ -9,6 +9,18 @@ class Permission extends \Spatie\Permission\Models\Permission
 {
     use NodeTrait;
 
+    protected $fillable = [
+        "id",
+        "name",
+        "title",
+        "guard_name",
+        "weigh",
+        "state",
+        "is_need_login",
+        "is_need_right",
+        "parent_id",
+    ];
+
     /**
      * 将路由同步按照树状结构同步到表中
      */
