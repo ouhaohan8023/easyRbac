@@ -26,5 +26,13 @@ return [
      * 菜单数据从数据库持久化到本地文件的位置
      * 默认是在 storage/app/menus.json
      */
-    'menus' => 'menus.json'
+    'menus' => 'menus.json',
+
+    /**
+     * 路由汉化
+     * 在这个数组中的路由name会汉化
+     */
+    'permissions' => [
+        'test.test.route' => '测试'
+    ]
 ];

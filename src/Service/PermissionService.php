@@ -22,6 +22,7 @@ class PermissionService
         $gKeys = array_keys($groups);
         $newIds = [];
 
+        $permissionNames = config('easy-rbac.permissions');
         foreach ($routes as $route) {
             $name = $route->getName();
             if ($name) {
@@ -35,10 +36,18 @@ class PermissionService
                         $rn .= $nameArr[$i];
                         $add['name'] = $rn;
                         $ex = Permission::query()->where('name', $rn)->first();
+                        $title = false;
+                        if (isset($permissionNames[$rn])) {
+                            $title = $permissionNames[$rn];
+                            $add['title'] = $title;
+                        }
                         $rn .= '.';
                         if ($ex) {
                             $parent = $ex;
-
+                            if ($title) {
+                                $ex->title = $title;
+                                $ex->save();
+                            }
                             continue;
                         }
                         $add['guard_name'] = 'api';
