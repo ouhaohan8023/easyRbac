@@ -31,6 +31,7 @@ class PermissionService
                     $rn = '';
                     $parent = null;
                     for ($i = 0; $i < $num; $i++) {
+                        $add = [];
                         $rn .= $nameArr[$i];
                         $add['name'] = $rn;
                         $ex = Permission::query()->where('name', $rn)->first();
