@@ -38,6 +38,7 @@ return new class extends Migration
             $table->tinyInteger('dot')->default(0)->comment('小红点标记 0否1是');
             $table->tinyInteger('dynamicNewTab')->default(0)->comment('是否详情页根据id传参不同可打开多个 1是0否');
             $table->tinyInteger('breadcrumbHidden')->default(0)->comment('是否隐藏面包屑 1是0否');
+            $table->tinyInteger('fullscreen')->default(0)->comment('是否全屏 1是0否');
 
             $table->string('system', 64)->nullable()->comment('系统');
             $table->integer('weigh', false)->default(0)->comment('权重');

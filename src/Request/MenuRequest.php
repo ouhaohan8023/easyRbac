@@ -44,6 +44,7 @@ class MenuRequest extends Request
             'weight' => 'integer',
             'img' => 'max:256',
             'type' => 'required|string|in:directory,menu,button',
+            'fullscreen' => 'integer'
         ];
     }
 
@@ -77,6 +78,7 @@ class MenuRequest extends Request
             'img' => '菜单封面',
             'type' => '类型：directory目录、menu菜单、button按钮',
             'system' => '系统',
+            'fullscreen' => '是否全屏',
         ];
     }
 }

@@ -20,21 +20,16 @@ class MenuService
             $add = [];
             $add['name'] = $menu['name'];
             if (isset($menu['meta'])) {
-                if (isset($menu['meta']['title'])) {
-                    $add['title'] = $menu['meta']['title'];
-                }
-                if (isset($menu['meta']['icon'])) {
-                    $add['icon'] = $menu['meta']['icon'];
-                }
-                if (isset($menu['meta']['noClosable'])) {
-                    $add['noClosable'] = $menu['meta']['noClosable'];
-                }
-                if (isset($menu['meta']['hidden'])) {
-                    $add['state'] = $menu['meta']['hidden'];
+                $keys = ['title', 'icon', 'noColumn', 'noClosable', 'hidden', 'breadcrumbHidden', 'levelHidden', 'fullscreen'];
+
+                foreach ($keys as $key) {
+                    if (isset($menu['meta'][$key])) {
+                        $add[$key] = $menu['meta'][$key];
+                    }
                 }
             }
             if (isset($menu['path'])) {
-                $add['url'] = $menu['path'];
+                $add['path'] = $menu['path'];
             }
             if ($pid) {
                 $add['parent_id'] = $pid;

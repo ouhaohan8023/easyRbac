@@ -46,6 +46,7 @@ class Menu extends Model
         'weigh',
         'img',
         'type',
+        'fullscreen'
     ];
 
     public function roles(): BelongsToMany
