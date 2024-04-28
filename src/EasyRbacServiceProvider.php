@@ -11,6 +11,7 @@ namespace Ouhaohan8023\EasyRbac;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Ouhaohan8023\EasyRbac\Facade\EasyRbac;
 use Ouhaohan8023\EasyRbac\Middleware\EasyAuth;
 
 class EasyRbacServiceProvider extends ServiceProvider
@@ -39,5 +40,6 @@ class EasyRbacServiceProvider extends ServiceProvider
         $this->app->singleton('EasyRbac', function () {
             return new EasyRbac;
         });
+        $this->app->alias('EasyRbac', EasyRbac::class);
     }
 }

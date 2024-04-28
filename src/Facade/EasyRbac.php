@@ -8,6 +8,6 @@ class EasyRbac extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'easy-rbac';
+        return 'EasyRbac';
     }
 }

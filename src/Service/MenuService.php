@@ -109,7 +109,7 @@ class MenuService
                     ->whereIn('role_id', $user->roles->pluck('id'))
                     ->distinct()
                     ->pluck('menu_id');
-                $menus->whereIn('id', $m);
+                $menus->whereIn('id', $m)->whereIn('type', ['directory', 'menu']);
             }
             return $menus->get()->toTree();
         } else {
@@ -130,7 +130,7 @@ class MenuService
         $menus = Menu::query()
             ->select('id', 'name', 'path', 'component', 'redirect', 'hidden', 'levelHidden', 'title', 'icon', 'isCustomSvg',
                 'noKeepAlive', 'noClosable', 'noColumn', 'badge', 'tabHidden', 'activeMenu', 'dot', 'dynamicNewTab',
-                'breadcrumbHidden', 'fullscreen', 'system', 'weigh', 'img', 'type')
+                'breadcrumbHidden', 'fullscreen', 'system', 'weigh', 'img', 'type', 'parent_id')
             ->get()->toArray();
         $json = json_encode($menus, JSON_UNESCAPED_SLASHES);
         Storage::put($path, $json);
