@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('redirect', 255)->nullable()->comment('重定向');
             $table->tinyInteger('hidden')->default(0)->comment('是否显示在菜单中显示路由（默认值：false）');
             $table->tinyInteger('levelHidden')->default(0)->comment('是否显示在菜单中显示隐藏一级路由（默认值：false）');
-            $table->string('title', 125)->nullable()->comment('菜单、面包屑、多标签页显示的名称');
+            $table->string('title', 255)->nullable()->comment('菜单、面包屑、多标签页显示的名称');
             $table->string('icon', 64)->nullable()->comment('菜单图标');
             // 是否是自定义svg图标（默认值：false，如果设置true，那么需要把你的svg拷贝到icon下，然后icon字段配置上你的图标名）
             $table->tinyInteger('isCustomSvg')->default(0)->comment('是否自定义SVG图标 1是0否');
@@ -34,14 +34,14 @@ return new class extends Migration
             $table->tinyInteger('noColumn')->default(0)->comment('当前路由是否可关闭多标签页，同上（2021年10月后新版支持）');
             $table->string('badge', 128)->nullable()->comment('badge小标签（只支持子级，String类型，支持自定义）');
             $table->tinyInteger('tabHidden')->default(0)->comment('当前路由是否不显示多标签页（默认值：false，不推荐使用）');
-            $table->string('activeMenu', 128)->nullable()->comment('高亮指定菜单，要从跟路由的path开始拼接（用于隐藏页高亮）');
+            $table->string('activeMenu', 256)->nullable()->comment('高亮指定菜单，要从跟路由的path开始拼接（用于隐藏页高亮）');
             $table->tinyInteger('dot')->default(0)->comment('小红点标记 0否1是');
             $table->tinyInteger('dynamicNewTab')->default(0)->comment('是否详情页根据id传参不同可打开多个 1是0否');
             $table->tinyInteger('breadcrumbHidden')->default(0)->comment('是否隐藏面包屑 1是0否');
 
             $table->string('system', 64)->nullable()->comment('系统');
             $table->integer('weigh', false)->default(0)->comment('权重');
-            $table->string('img', 64)->nullable()->comment('菜单封面');
+            $table->string('img', 256)->nullable()->comment('菜单封面');
             $table->string('type', 32)->nullable()->comment('类型：directory目录、menu菜单、button按钮');
             $table->softDeletes();
             $table->timestamps();
