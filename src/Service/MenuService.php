@@ -99,8 +99,8 @@ class MenuService
     public static function getMenusByUser(User $user)
     {
         $key = config('easy-rbac.super_admin_key', 'super_admin');
-        $menus = Menu::query();
         if (method_exists($user, 'hasRole')) {
+            $menus = Menu::query()->whereIn('type', ['directory', 'menu']);
             if ($user->hasRole($key)) {
                 // 超管
             } else {
@@ -109,7 +109,7 @@ class MenuService
                     ->whereIn('role_id', $user->roles->pluck('id'))
                     ->distinct()
                     ->pluck('menu_id');
-                $menus->whereIn('id', $m)->whereIn('type', ['directory', 'menu']);
+                $menus->whereIn('id', $m);
             }
             return $menus->get()->toTree();
         } else {
