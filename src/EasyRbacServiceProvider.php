@@ -11,8 +11,12 @@ namespace Ouhaohan8023\EasyRbac;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Ouhaohan8023\EasyRbac\Facade\EasyRbac;
+use Ouhaohan8023\EasyRbac\Command\MenuPersist;
+use Ouhaohan8023\EasyRbac\Command\MenuRecover;
+use Ouhaohan8023\EasyRbac\Command\SyncPermission;
+use Ouhaohan8023\EasyRbac\Facade\EasyRbac as EasyRbacFacade;
 use Ouhaohan8023\EasyRbac\Middleware\EasyAuth;
+use Ouhaohan8023\EasyRbac\Model\EasyRbac;
 
 class EasyRbacServiceProvider extends ServiceProvider
 {
@@ -31,6 +35,14 @@ class EasyRbacServiceProvider extends ServiceProvider
         Gate::before(function ($user, $ability) {
             return $user->hasRole(config('easy-rbac.super_admin_key')) ? true : null;
         });
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                MenuPersist::class,
+                MenuRecover::class,
+                SyncPermission::class,
+            ]);
+        }
     }
 
     public function register()
@@ -38,8 +50,8 @@ class EasyRbacServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/Config/easy-rbac.php', 'easy-rbac');
 
         $this->app->singleton('EasyRbac', function () {
-            return new EasyRbac;
+            return new EasyRbac();
         });
-        $this->app->alias('EasyRbac', EasyRbac::class);
+        $this->app->alias('EasyRbac', EasyRbacFacade::class);
     }
 }

@@ -34,6 +34,7 @@ class MenuFrontResource extends JsonResource
                 'dot' => $this->dot,
                 'breadcrumbHidden' => $this->breadcrumbHidden,
                 'dynamicNewTab' => $this->dynamicNewTab,
+                'fullscreen' => $this->fullscreen,
             ],
             'children' => new MenuFrontCollection($this->children),
         ];

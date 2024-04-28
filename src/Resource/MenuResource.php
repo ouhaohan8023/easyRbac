@@ -34,6 +34,7 @@ class MenuResource extends JsonResource
             'dot' => $this->dot,
             'dynamicNewTab' => $this->dynamicNewTab,
             'breadcrumbHidden' => $this->breadcrumbHidden,
+            'fullscreen' => $this->fullscreen,
             'system' => $this->system,
             'weigh' => $this->weigh,
             'img' => $this->img,

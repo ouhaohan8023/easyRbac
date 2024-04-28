@@ -24,6 +24,7 @@ return [
 
     /**
      * 菜单数据从数据库持久化到本地文件的位置
+     * 默认是在 storage/app/menus.json
      */
     'menus' => 'menus.json'
 ];

@@ -3,11 +3,13 @@
 ![easy-rbac](./easy-rbac.png)
 
 ### 1. 安装
+
 ```composer
 composer require ouhaohan8023/easy-rbac
 ```
 
 ### 2. 配置
+
 ```
 php artisan vendor:publish --provider="Ouhaohan8023\EasyRbac\EasyRbacServiceProvider"
 
@@ -16,7 +18,34 @@ permission.php 中是在 laravel-permission 的基础上结合 easy-rbac 进行�
 
 ```
 
-### 3. 使用
+### 3. EasyRbac 静态方法列表
+
+| 方法名                    | 描述               | 参数                      | 返回值      |
+|------------------------|------------------|-------------------------|----------|
+| `syncPermission`       | 同步后端权限           | 无                       | 无        |
+| `permissionTree`       | 返回权限树            | 无                       | 树状结构的路由树 |
+| `initMenus`            | 使用前端路由初始化菜单      | 前端路由文件构成的JSON字符串        | 无        |
+| `addMenu`              | 新增菜单             | 无                       | bool     |
+| `updateMenu`           | 更新菜单             | $data 要更新的内容，$id 要更新的ID | bool     |
+| `menuTree`             | 菜单树              | 无                       | 菜单树      |
+| `roleTree`             | 角色树              | 无                       | 角色树      |
+| `addRole`              | 新增角色             | $data                   | bool     |
+| `updateRole`           | 更新角色             | $data 要更新的内容，$id 要更新的ID | bool     |
+| `getMenusByUser`       | 获取用户的可用菜单树       | $user 当前用户              | 菜单树      |
+| `getPermissionsByUser` | 获取用户的可用权限列表      | $user 当前用户              | 权限数组     |
+| `persistenceMenus`     | 将menus表的数据持久化到本地 | 无                       | 无        |
+| `restoreMenus`         | 将menus表的数据持久化到本地 | 无                       | 无        |
+
+### 4. 命令
+
+| 命令名                    | 描述            |
+|------------------------|---------------|
+| `easy:menu-persist`    | 将菜单从数据库导出到文件中 |
+| `easy:menu-recover`    | 将菜单从文件恢复到数据库中 |
+| `easy:sync-permission` | 同步路由          |
+
+### 5. 使用
+
 ```composer
 1. 将路由按照树形结构存入表中
 EasyRbac::syncPermission();
