@@ -2,9 +2,12 @@
 
 namespace Ouhaohan8023\EasyRbac\Service;
 
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Ouhaohan8023\EasyRbac\Exception\HasRoleException;
 use Ouhaohan8023\EasyRbac\Model\Menu;
+use Ouhaohan8023\EasyRbac\Model\RoleHasMenu;
 
 class MenuService
 {
@@ -92,6 +95,29 @@ class MenuService
     public static function tree()
     {
         return Menu::get()->toTree();
+
+    }
+
+    public static function getMenusByUser(User $user)
+    {
+        $key = config('easy-rbac.super_admin_key', 'super_admin');
+        $menus = Menu::query();
+        if (method_exists($user, 'hasRole')) {
+            if ($user->hasRole($key)) {
+                // 超管
+            } else {
+                $m = RoleHasMenu::query()
+                    ->select('menu_id')
+                    ->whereIn('role_id', $user->roles->pluck('id'))
+                    ->distinct()
+                    ->pluck('menu_id');
+                $menus->whereIn('id', $m);
+            }
+            return $menus->get()->toTree();
+        } else {
+            // User对象没有hasRole方法
+            throw new HasRoleException();
+        }
 
     }
 }

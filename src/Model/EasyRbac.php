@@ -9,6 +9,7 @@
 
 namespace Ouhaohan8023\EasyRbac\Model;
 
+use Illuminate\Foundation\Auth\User;
 use Ouhaohan8023\EasyRbac\Service\MenuService;
 use Ouhaohan8023\EasyRbac\Service\PermissionService;
 use Ouhaohan8023\EasyRbac\Service\RoleService;
@@ -59,5 +60,10 @@ class EasyRbac
     public static function updateRole($data, $id)
     {
         return RoleService::update($data, $id);
+    }
+
+    public static function getMenusByUser(User $user)
+    {
+        return MenuService::getMenusByUser($user);
     }
 }
