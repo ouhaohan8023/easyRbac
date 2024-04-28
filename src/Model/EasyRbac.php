@@ -66,4 +66,9 @@ class EasyRbac
     {
         return MenuService::getMenusByUser($user);
     }
+
+    public static function getPermissionsByUser(User $user)
+    {
+        return PermissionService::getPermissionsByUser($user);
+    }
 }

@@ -2,7 +2,9 @@
 
 namespace Ouhaohan8023\EasyRbac\Service;
 
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Route;
+use Ouhaohan8023\EasyRbac\Exception\HasRoleException;
 use Ouhaohan8023\EasyRbac\Model\Permission;
 
 class PermissionService
@@ -55,5 +57,23 @@ class PermissionService
     public static function tree()
     {
         return Permission::get()->toTree();
+    }
+
+    public static function getPermissionsByUser(User $user)
+    {
+        $key = config('easy-rbac.super_admin_key', 'super_admin');
+        if (method_exists($user, 'hasRole')) {
+            if ($user->hasRole($key)) {
+                // 超管
+                $permissions = Permission::query();
+            } else {
+                $permissions = $user->permissions();
+            }
+            return $permissions->select('name')->pluck('name');
+        } else {
+            // User对象没有hasRole方法
+            throw new HasRoleException();
+        }
+
     }
 }
