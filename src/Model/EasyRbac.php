@@ -16,59 +16,132 @@ use Ouhaohan8023\EasyRbac\Service\RoleService;
 
 class EasyRbac
 {
+    /**
+     * 同步后端权限
+     * @return void
+     */
     public static function syncPermission()
     {
         PermissionService::sync();
     }
 
+    /**
+     * 返回权限树
+     * @return mixed
+     */
     public static function permissionTree()
     {
         return PermissionService::tree();
     }
 
+    /**
+     * 使用前端路由初始化菜单
+     * @param $strings
+     * @return void
+     */
     public static function initMenus($strings)
     {
         $arr = json_decode($strings, true);
         MenuService::init($arr);
     }
 
+    /**
+     * 新增菜单
+     * @param $data
+     * @return bool
+     */
     public static function addMenu($data)
     {
         return MenuService::add($data);
     }
 
+    /**
+     * 更新菜单
+     * @param $data
+     * @param $id
+     * @return bool
+     */
     public static function updateMenu($data, $id)
     {
         return MenuService::update($data, $id);
     }
 
+    /**
+     * 菜单树
+     * @return mixed
+     */
     public static function menuTree()
     {
         return MenuService::tree();
     }
 
+    /**
+     * 角色树
+     * @return mixed
+     */
     public static function roleTree()
     {
         return RoleService::tree();
     }
 
+    /**
+     * 新增角色
+     * @param $data
+     * @return bool
+     */
     public static function addRole($data)
     {
         return RoleService::add($data);
     }
 
+    /**
+     * 更新角色
+     * @param $data
+     * @param $id
+     * @return bool
+     */
     public static function updateRole($data, $id)
     {
         return RoleService::update($data, $id);
     }
 
+    /**
+     * 获取用户的可用菜单树
+     * @param  User  $user
+     * @return mixed
+     * @throws \Ouhaohan8023\EasyRbac\Exception\HasRoleException
+     */
     public static function getMenusByUser(User $user)
     {
         return MenuService::getMenusByUser($user);
     }
 
+    /**
+     * 获取用户的可用权限列表
+     * @param  User  $user
+     * @return \Illuminate\Support\Collection
+     * @throws \Ouhaohan8023\EasyRbac\Exception\HasRoleException
+     */
     public static function getPermissionsByUser(User $user)
     {
         return PermissionService::getPermissionsByUser($user);
+    }
+
+    /**
+     * 将menus表的数据持久化到本地
+     * @return void
+     */
+    public static function persistenceMenus()
+    {
+        MenuService::persistence();
+    }
+
+    /**
+     * 将本地持久化的menus数据恢复到数据库
+     * @return void
+     */
+    public static function restoreMenus()
+    {
+        MenuService::restore();
     }
 }

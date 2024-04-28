@@ -5,6 +5,7 @@ namespace Ouhaohan8023\EasyRbac\Service;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Ouhaohan8023\EasyRbac\Exception\HasRoleException;
 use Ouhaohan8023\EasyRbac\Model\Menu;
 use Ouhaohan8023\EasyRbac\Model\RoleHasMenu;
@@ -20,7 +21,9 @@ class MenuService
             $add = [];
             $add['name'] = $menu['name'];
             if (isset($menu['meta'])) {
-                $keys = ['title', 'icon', 'noColumn', 'noClosable', 'hidden', 'breadcrumbHidden', 'levelHidden', 'fullscreen'];
+                $keys = [
+                    'title', 'icon', 'noColumn', 'noClosable', 'hidden', 'breadcrumbHidden', 'levelHidden', 'fullscreen'
+                ];
 
                 foreach ($keys as $key) {
                     if (isset($menu['meta'][$key])) {
@@ -66,7 +69,7 @@ class MenuService
         DB::beginTransaction();
         try {
             $menu = Menu::find($id);
-            if (! $menu) {
+            if (!$menu) {
                 throw new \Exception('Menu not found');
             }
 
@@ -112,6 +115,34 @@ class MenuService
         } else {
             // User对象没有hasRole方法
             throw new HasRoleException();
+        }
+
+    }
+
+    /**
+     * 把菜单数据持久化到本地
+     * @return void
+     */
+    public static function persistence()
+    {
+        $path = config('easy-rbac.menus', 'menus.json');
+
+        $menus = Menu::query()
+            ->select('id', 'name', 'path', 'component', 'redirect', 'hidden', 'levelHidden', 'title', 'icon', 'isCustomSvg',
+                'noKeepAlive', 'noClosable', 'noColumn', 'badge', 'tabHidden', 'activeMenu', 'dot', 'dynamicNewTab',
+                'breadcrumbHidden', 'fullscreen', 'system', 'weigh', 'img', 'type')
+            ->get()->toArray();
+        $json = json_encode($menus, JSON_UNESCAPED_SLASHES);
+        Storage::put($path, $json);
+    }
+
+    public static function restore()
+    {
+        $path = config('easy-rbac.menus', 'menus.json');
+        $json = Storage::get($path);
+        $menus = json_decode($json, true);
+        foreach ($menus as $menu) {
+            Menu::updateOrCreate(['id' => $menu['id']], $menu);
         }
 
     }

@@ -21,4 +21,9 @@ return [
      * 超级管理员会跳过权限认证
      */
     'super_admin_key' => 'super_admin',
+
+    /**
+     * 菜单数据从数据库持久化到本地文件的位置
+     */
+    'menus' => 'menus.json'
 ];

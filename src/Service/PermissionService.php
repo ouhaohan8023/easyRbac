@@ -74,6 +74,5 @@ class PermissionService
             // User对象没有hasRole方法
             throw new HasRoleException();
         }
-
     }
 }
