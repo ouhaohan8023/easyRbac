@@ -112,7 +112,7 @@ class PermissionService
         $key = config('easy-rbac.cache.permission', 'easy-rbac-permissions');
 
         return Cache::rememberForever($key, function () {
-            return Permission::all()->pluck('name', 'is_need_right')->toArray();
+            return Permission::all()->pluck('is_need_right', 'name')->toArray();
         });
     }
 
