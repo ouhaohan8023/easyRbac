@@ -28,6 +28,7 @@ class UserService
                 })->get();
                 foreach ($users as $user) {
                     $user->syncPermissions($permissions);
+                    // 清理用户的权限缓存
                     PermissionService::clearUserPermissionCacheByUser($user);
                 }
             }

@@ -45,6 +45,7 @@ class MenuRequest extends Request
             'img' => 'max:256',
             'type' => 'required|string|in:directory,menu,button',
             'fullscreen' => 'integer',
+            'guard' => 'nullable',
         ];
     }
 

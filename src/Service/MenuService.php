@@ -75,8 +75,18 @@ class MenuService
 
             $menu->fill($data)->save();
 
-            if (isset($data['guard']) && $data['guard']) {
+            if (isset($data['guard'])) {
                 $menu->permissions()->sync($data['guard']);
+            }
+
+            $roles = $menu->roles;
+            foreach ($roles as $role) {
+                $menuIds = $role->menus()->pluck('id')->toArray();
+                $permissionIds = MenuHasPermissionService::getPIdByMenus($menuIds);
+                $role->syncPermissions($permissionIds);
+
+                // 更新包含此角色的用户的permission
+                UserService::updateUserRolePermission($role);
             }
 
             DB::commit();
@@ -159,6 +169,8 @@ class MenuService
         if ($node->children()->count()) {
             throw new \Exception('当前菜单存在子节点，无法直接删除');
         }
+
+        $node->permissions()->detach();
 
         return $node->delete();
     }
