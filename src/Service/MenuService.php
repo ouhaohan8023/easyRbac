@@ -22,7 +22,7 @@ class MenuService
             $add['name'] = $menu['name'];
             if (isset($menu['meta'])) {
                 $keys = [
-                    'title', 'icon', 'noColumn', 'noClosable', 'hidden', 'breadcrumbHidden', 'levelHidden', 'fullscreen'
+                    'title', 'icon', 'noColumn', 'noClosable', 'hidden', 'breadcrumbHidden', 'levelHidden', 'fullscreen',
                 ];
 
                 foreach ($keys as $key) {
@@ -69,7 +69,7 @@ class MenuService
         DB::beginTransaction();
         try {
             $menu = Menu::find($id);
-            if (!$menu) {
+            if (! $menu) {
                 throw new \Exception('Menu not found');
             }
 
@@ -111,6 +111,7 @@ class MenuService
                     ->pluck('menu_id');
                 $menus->whereIn('id', $m);
             }
+
             return $menus->get()->toTree();
         } else {
             // User对象没有hasRole方法
@@ -121,6 +122,7 @@ class MenuService
 
     /**
      * 把菜单数据持久化到本地
+     *
      * @return void
      */
     public static function persistence()
@@ -144,6 +146,20 @@ class MenuService
         foreach ($menus as $menu) {
             Menu::updateOrCreate(['id' => $menu['id']], $menu);
         }
+    }
 
+    /**
+     * 有子级的话无法删除
+     *
+     * @return void
+     */
+    public static function del($id, $children)
+    {
+        $node = Menu::find($id);
+        if ($node->children()->count()) {
+            throw new \Exception('当前菜单存在子节点，无法直接删除');
+        }
+
+        return $node->delete();
     }
 }

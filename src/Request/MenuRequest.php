@@ -44,7 +44,7 @@ class MenuRequest extends Request
             'weight' => 'integer',
             'img' => 'max:256',
             'type' => 'required|string|in:directory,menu,button',
-            'fullscreen' => 'integer'
+            'fullscreen' => 'integer',
         ];
     }
 

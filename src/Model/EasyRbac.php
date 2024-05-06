@@ -18,6 +18,7 @@ class EasyRbac
 {
     /**
      * 同步后端权限
+     *
      * @return void
      */
     public static function syncPermission()
@@ -27,6 +28,7 @@ class EasyRbac
 
     /**
      * 返回权限树
+     *
      * @return mixed
      */
     public static function permissionTree()
@@ -36,7 +38,7 @@ class EasyRbac
 
     /**
      * 使用前端路由初始化菜单
-     * @param $strings
+     *
      * @return void
      */
     public static function initMenus($strings)
@@ -47,7 +49,7 @@ class EasyRbac
 
     /**
      * 新增菜单
-     * @param $data
+     *
      * @return bool
      */
     public static function addMenu($data)
@@ -57,8 +59,7 @@ class EasyRbac
 
     /**
      * 更新菜单
-     * @param $data
-     * @param $id
+     *
      * @return bool
      */
     public static function updateMenu($data, $id)
@@ -68,6 +69,7 @@ class EasyRbac
 
     /**
      * 菜单树
+     *
      * @return mixed
      */
     public static function menuTree()
@@ -77,6 +79,7 @@ class EasyRbac
 
     /**
      * 角色树
+     *
      * @return mixed
      */
     public static function roleTree()
@@ -86,7 +89,7 @@ class EasyRbac
 
     /**
      * 新增角色
-     * @param $data
+     *
      * @return bool
      */
     public static function addRole($data)
@@ -96,8 +99,7 @@ class EasyRbac
 
     /**
      * 更新角色
-     * @param $data
-     * @param $id
+     *
      * @return bool
      */
     public static function updateRole($data, $id)
@@ -107,8 +109,9 @@ class EasyRbac
 
     /**
      * 获取用户的可用菜单树
-     * @param  User  $user
+     *
      * @return mixed
+     *
      * @throws \Ouhaohan8023\EasyRbac\Exception\HasRoleException
      */
     public static function getMenusByUser(User $user)
@@ -118,8 +121,9 @@ class EasyRbac
 
     /**
      * 获取用户的可用权限列表
-     * @param  User  $user
+     *
      * @return \Illuminate\Support\Collection
+     *
      * @throws \Ouhaohan8023\EasyRbac\Exception\HasRoleException
      */
     public static function getPermissionsByUser(User $user)
@@ -129,6 +133,7 @@ class EasyRbac
 
     /**
      * 将menus表的数据持久化到本地
+     *
      * @return void
      */
     public static function persistenceMenus()
@@ -138,10 +143,22 @@ class EasyRbac
 
     /**
      * 将本地持久化的menus数据恢复到数据库
+     *
      * @return void
      */
     public static function restoreMenus()
     {
         MenuService::restore();
+    }
+
+    /**
+     * 删除菜单
+     * 有子节点的话无法直接删除
+     *
+     * @return bool
+     */
+    public static function delMenu($id, $children = false)
+    {
+        MenuService::del($id, $children);
     }
 }

@@ -7,9 +7,9 @@ use Throwable;
 class HasRoleException extends \Exception
 {
     public function __construct(
-        $message = "需要检查是否有 HasRoles Trait",
+        $message = '需要检查是否有 HasRoles Trait',
         $code = 0,
-        Throwable $previous = null
+        ?Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);
     }

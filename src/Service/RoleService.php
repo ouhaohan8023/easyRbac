@@ -59,6 +59,9 @@ class RoleService
                 $role->menus()->sync($data['menus']);
                 $permissionIds = MenuHasPermissionService::getPIdByMenus($data['menus']);
                 $role->syncPermissions($permissionIds);
+
+                // 更新包含此角色的用户的permission
+                UserService::updateUserRolePermission($role);
             }
 
             DB::commit();

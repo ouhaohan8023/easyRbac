@@ -35,6 +35,7 @@ permission.php 中是在 laravel-permission 的基础上结合 easy-rbac 进行�
 | `getPermissionsByUser` | 获取用户的可用权限列表      | $user 当前用户              | 权限数组     |
 | `persistenceMenus`     | 将menus表的数据持久化到本地 | 无                       | 无        |
 | `restoreMenus`         | 将menus表的数据持久化到本地 | 无                       | 无        |
+| `delMenu`         | 删除菜单             | $id 菜单ID                | bool        |
 
 ### 4. 命令
 
