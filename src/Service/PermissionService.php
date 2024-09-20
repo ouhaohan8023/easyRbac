@@ -69,9 +69,13 @@ class PermissionService
         Cache::forget($cacheKey);
     }
 
-    public static function tree()
+    public static function tree($name = "")
     {
-        return Permission::get()->toTree();
+        if ($name) {
+            return Permission::query()->where('name', 'like', $name . '%')->get()->toTree();
+        } else {
+            return Permission::get()->toTree();
+        }
     }
 
     public static function getPermissionsByUser(User $user)
