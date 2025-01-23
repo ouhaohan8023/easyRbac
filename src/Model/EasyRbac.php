@@ -78,6 +78,15 @@ class EasyRbac
     }
 
     /**
+     * 菜单权重树
+     * @return void
+     */
+    public static function menuWeightTree()
+    {
+        return MenuService::weightTree();
+    }
+
+    /**
      * 角色树
      *
      * @return mixed

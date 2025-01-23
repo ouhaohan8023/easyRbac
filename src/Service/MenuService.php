@@ -106,6 +106,14 @@ class MenuService
 
     }
 
+    public static function weightTree()
+    {
+        return Menu::query()
+            ->whereNull('parent_id')
+            ->orderBy('weigh', 'desc')
+            ->get();
+    }
+
     public static function getMenusByUser(User $user)
     {
         $key = config('easy-rbac.super_admin_key', 'super_admin');
@@ -122,7 +130,7 @@ class MenuService
                 $menus->whereIn('id', $m);
             }
 
-            return $menus->get()->toTree();
+            return $menus->orderBy('weigh', 'desc')->get()->toTree();
         } else {
             // User对象没有hasRole方法
             throw new HasRoleException();
