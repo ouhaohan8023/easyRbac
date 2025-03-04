@@ -31,9 +31,9 @@ class EasyRbac
      *
      * @return mixed
      */
-    public static function permissionTree()
+    public static function permissionTree($name = "")
     {
-        return PermissionService::tree();
+        return PermissionService::tree($name);
     }
 
     /**
