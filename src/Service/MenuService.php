@@ -122,7 +122,7 @@ class MenuService
                 $menus->whereIn('id', $m);
             }
 
-            return $menus->get()->toTree();
+            return $menus ->orderBy('weigh', 'desc')->get()->toTree();
         } else {
             // User对象没有hasRole方法
             throw new HasRoleException();
