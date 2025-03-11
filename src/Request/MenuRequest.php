@@ -21,9 +21,11 @@ class MenuRequest extends Request
      */
     public function rules()
     {
+        $menuId = $this->input('id'); // Assuming the route parameter is named 'menu'
         return [
+            'id' => 'integer',
             'parent_id' => 'bail|integer|exists:menus,id',
-            'name' => ['max:255'],
+            'name' => ['max:255', 'unique:menus,name,' . $menuId],
             'path' => 'max:255',
             'component' => 'max:255',
             'redirect' => 'max:255',
