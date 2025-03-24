@@ -22,7 +22,7 @@ class MenuRequest extends Request
     public function rules()
     {
         return [
-            'parent_id' => 'bail|integer|exists:menus,id',
+            'parent_id' => 'nullable|integer|exists:menus,id',
             'name' => ['max:255'],
             'path' => 'max:255',
             'component' => 'max:255',
@@ -42,6 +42,7 @@ class MenuRequest extends Request
             'dynamicNewTab' => 'integer',
             'breadcrumbHidden' => 'integer',
             'weight' => 'integer',
+            'weigh' => 'integer',
             'img' => 'max:256',
             'type' => 'required|string|in:directory,menu,button',
             'fullscreen' => 'integer',
@@ -76,6 +77,7 @@ class MenuRequest extends Request
             'dynamicNewTab' => '是否详情页根据id传参不同可打开多个',
             'breadcrumbHidden' => '是否隐藏面包屑',
             'weight' => '权重',
+            'weigh' => '权重',
             'img' => '菜单封面',
             'type' => '类型：directory目录、menu菜单、button按钮',
             'system' => '系统',
